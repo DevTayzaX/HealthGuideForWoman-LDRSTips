@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LDR လေးတွေအတွက် လစဉ်ကျန်းမာရေးလမ်းညွှန် - By Tayza Htoo</title>
+  <style>
+    /* --- General body and font --- */
+    body {
+      margin: 0;
+      font-family: 'Myanmar Text', sans-serif, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fff8f8;
+      color: #333;
+      line-height: 1.7;
+    }
+
+    /* --- Login Page Styles --- */
+    #loginPage {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+      background: linear-gradient(135deg, #fceabb, #f8b500);
+    }
+    #loginForm {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+    }
+    #loginForm h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #e91e63;
+      font-weight: 700;
+    }
+    #loginForm label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #333;
+    }
+    #loginForm input[type="text"],
+    #loginForm input[type="password"] {
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      border: 2px solid #f8b500;
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    #loginForm input[type="text"]:focus,
+    #loginForm input[type="password"]:focus {
+      border-color: #ff9f00;
+    }
+    #loginForm button {
+      background: #f8b500;
+      color: white;
+      font-weight: 700;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s;
+    }
+    #loginForm button:hover {
+      background: #ff9f00;
+    }
+    #loginError {
+      color: red;
+      margin-bottom: 10px;
+      height: 20px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* --- Main Page Styles --- */
+    #mainPage {
+      display: none;
+      max-width: 900px;
+      margin: auto;
+      padding: 0 15px 40px 15px;
+    }
+
+    header {
+      background: #e91e63;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.8em;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      border-radius: 0 0 20px 20px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      background-color: #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      padding: 10px;
+      border-radius: 20px;
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 20px;
+      background: #f1f1f1;
+      color: #333;
+      font-weight: bold;
+      transition: all 0.3s;
+      border: none;
+      user-select: none;
+    }
+
+    .tab:hover {
+      background: #e0e0e0;
+    }
+
+    .tab.active {
+      background: #e91e63;
+      color: white;
+    }
+
+    .content {
+      padding: 25px 20px;
+      display: none;
+      margin-top: 20px;
+    }
+
+    .content.active {
+      display: block;
+    }
+
+    section {
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: #e91e63;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      margin-top: 20px;
+      color: #444;
+    }
+
+    ul {
+      padding-left: 25px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background: #e91e63;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+      border-radius: 0 0 20px 20px;
+    }
+
+    #logoutBtn {
+      background: #e91e63;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      float: right;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+
+    #logoutBtn:hover {
+      background: #b0003a;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header {
+        font-size: 1.5em;
+      }
+
+      .tab {
+        flex: 1 0 100%;
+        text-align: center;
+      }
+
+      #logoutBtn {
+        float: none;
+        width: 100%;
+        margin-top: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Page -->
+  <div id="loginPage">
+    <form id="loginForm">
+      <h2>🌸 Cute Login 🌸</h2>
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Myo Myat Thwe" required />
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Dec12024" required />
+      <div id="loginError"></div>
+      <button type="submit">Log In</button>
+    </form>
+  </div>
+
+  <!-- Main Page -->
+  <div id="mainPage">
+    <header>
+      🩸 LDR လေးတွေအတွက် လစဉ်ကျန်းမာရေးလမ်းညွှန် - By Tayza Htoo
+      <button id="logoutBtn" title="Logout">🚪 Log Out</button>
+    </header>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="foods">🍎 အစားအသောက်</button>
+      <button class="tab" data-tab="care">💆 ကိုယ်ကိုဂရုစိုက်ခြင်း</button>
+      <button class="tab" data-tab="ldr">💑 LDR ထောက်ခံမှု</button>
+      <button class="tab" data-tab="doctor">🩺 ဆရာဝန် အကြံပြုချက်</button>
+    </div>
+
+    <div class="content active" id="foods">
+      <section>
+        <h2>🚫 ရှောင်သင့်တဲ့အစားအသောက်များ</h2>
+        <p>လစဉ်အတွင်း သင့်အိမ်ထောင်ဖက် (သို့) ကိုယ်တိုင်အတွက် ကျန်းမာရေးအတွက် မလိုအပ်သည့်အစားအစာများကို ရှောင်ရှားသင့်ပါတယ်။</p>
+        <ul>
+          <li><strong>အချိုပွဲများ:</strong> သကြားဓာတ်များသောအချိုပွဲများသည် ဆားပင်ပန်းမှုကိုပိုမိုဖြစ်စေနိုင်ပါတယ်။</li>
+          <li><strong>ကော်ဖီ၊ လက်ဖက်ရည်များ:</strong> ကော်ဖီသည် ရင်ဖိုမှုနှင့် အဖောင်းခြင်းများကိုပိုတိုးစေနိုင်သည်။</li>
+          <li><strong>နို့ထွက်ပစ္စည်းများ:</strong> နို့နှင့်အသားနီများသည် အစာအိမ်အောင့်မှုကို ဖြစ်စေနိုင်သည်။</li>
+          <li><strong>ဆားများသောအစားအစာ:</strong> ဥပမာ- ခရုများ၊ ချစ်စစ်များ စသည်။</li>
+        </ul>
+      </section>
+      <section>
+        <h3>အစားအသောက်အတွက် အကြံပြုချက်</h3>
+        <ul>
+          <li>ပဲသား၊ ငှက်သီးသီးနှင့် အသီးအရွက်များ စားပါ။</li>
+          <li>နွေးနွေးထွေးထွေးသော အူနပ်များ သောက်ပါ။</li>
+          <li>နံနက်အစာကို မလွဲမသွေစားပါ။</li>
+          <li>အရည်များစွာ သောက်ရန် သတိပြုပါ၊ ရေ၊ သစ်ဖျော်ရည်များကို အထူးအားထားပါ။</li>
+          <li>မနက်ပိုင်းတွင် ငွက်ပျောသီး၊ ဖရဲသီးကဲ့သို့ သဘာဝသစ်သီးများ စားသုံးပါ။</li>
+          <li>ဆီးချိုလူနာများအတွက် သကြားနည်းသော အစားအစာများသာ ရွေးချယ်ပါ။</li>
+          <li>အစားအသောက်ကို မတည့်အောင် လိုက်လျောညီထွေစွာ စီမံပါ။</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="content" id="care">
+      <section>
+        <h2>💆 ကိုယ်ကို ဂရုစိုက်ခြင်း</h2>
+        <p>လစဉ်အတွင်း ကိုယ့်ကိုယ်ကို လေ့ကျင့်မှု၊ အနားယူမှု နှင့် စိတ်ပိုင်းဆိုင်ရာဂရုစိုက်မှုသည် အရေးကြီးသည်။</p>
+        <ul>
+          <li>နွေးထည်အိတ် သုံးပြီး ခေါင်ရမ်းအနေအထားဖြင့် လှလှနေတာအောင်ဖြစ်အောင်လုပ်ပါ။</li>
+          <li>လျှောလျှောတောက်တောက် ရေများစွာ သောက်ပါ။</li>
+          <li>နံနက်ခင်းတိုင်း ယောဂလုပ်ခြင်း သို့မဟုတ် လမ်းလျှောက်ခြင်း။</li>
+          <li>စိတ်ပင်ပန်းမှုများပါဝင်ပါက တေးဂီတနားထောင်ပါ။</li>
+          <li>အိပ်ရေးစုံလင်အောင် ရှိစေပါ။</li>
+          <li>အသားအရေကို သန့်ရှင်းရေးနှင့် လိုအပ်သလို moisturizer သုံးပါ။</li>
+          <li>စိတ်ဖိစီးမှုများကို ထိန်းသိမ်းရန် မျက်နှာချိန်စာရေးခြင်း၊ မျက်ရည်ထွက်မှုမရှိစေရန် စောင့်ကြည့်ပါ။</li>
+          <li>မိမိကိုယ်ကို ချစ်မြတ်နိုးမှု ရှိစေရန် ရည်ရွယ်ပါ။</li>
+        </ul>
+      </section>
+      <section>
+        <h3>အကြံပြုနည်းများ</h3>
+        <ul>
+          <li>လှပတဲ့ journal မှတ်တမ်းရေးပါ။</li>
+          <li>အသံတိတ်စရာမျိုးထဲမှာ ဝင်ပြီး မူလမရှိခဲ့သလို နားလည်မှုရရှိပါစေ။</li>
+          <li>အချစ်ရေးစပ်ဆိုင်ရာ စိတ်ဒဏ်ရာများအတွက် အတွေးများကို ရေးသားပါ။</li>
+          <li>မှတ်ချက်များကို မျှဝေသူ တစ်ယောက်ရှိရန် အရေးကြီးသည်။</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="content" id="ldr">
+      <section>
+        <h2>💑 LDR ထောက်ခံမှုနည်းလမ်းများ</h2>
+        <p>သင့် LDR အချစ်သူအတွက် လစဉ်အချိန်မှာ အထူးဂရုစိုက်မှုတစ်ခုဖြစ်စေဖို့ လုပ်နိုင်ပါတယ်။</p>
+        <ul>
+          <li>နေ့တိုင်း စိတ်လှုပ်ရှားစေတဲ့ ဆုတောင်းစာ (သို့) အသံဖိုင်ပေးပါ။</li>
+          <li>“မင်းအတွက်နည်းလမ်းတွေ ရှိပါတယ်” ဆိုတဲ့ စကားလေးပေးပါ။</li>
+          <li>ဖုန်းဖြင့်တင်မဟုတ်ပဲ ရုပ်ရှင်မျှဝေကြည့်မှု (movie sync) စီစဉ်ပါ။</li>
+          <li>မုန့်ဟင်းခါး၊ အူနပ် တို့ကို order ပေးပါ။</li>
+          <li>သတိပြုမှုနှင့် ချစ်ခြင်းပြသခြင်းသည် အမြဲတမ်းလိုအပ်ပါတယ်။</li>
+          <li>အချိန်မရွေး အပြန်အလှန် အနားယူနိုင်ဖို့ ကြိုးစားပါ။</li>
+          <li>အဆက်အသွယ်ကောင်းစွာ သိမ်းဆည်းပါ၊ ကြွယ်ဝသော စကားပြောဆိုမှုတွေနဲ့ ဆက်သွယ်ပါ။</li>
+        </ul>
+      </section>
+      <section>
+        <h3>အမြဲဖော်ရွေဖို့...</h3>
+        <ul>
+          <li>စကားပြောခြင်းက ပိုကောင်းပါတယ်။ စာဖြင့်တုံ့ပြန်ရုံမျှမဟုတ်ပါစေနဲ့။</li>
+          <li>တစ်နာရီလောက်ဖုန်းဖြင့် FaceTime ခဏလုပ်ဖို့ အချိန်ထုတ်ပါ။</li>
+          <li>အပေါင်းအသင်း၊ မိတ်ဆွေများနှင့် တွေ့ဆုံရန် ကြိုးစားပါ၊ စိတ်ဖိစီးမှု လျော့နည်းစေသည်။</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="content" id="doctor">
+      <section>
+        <h2>🩺 ဆရာဝန် အကြံပြုချက်များ (နိုင်ငံခြားမှ)</h2>
+        <p>ဒီနေ့ ဆရာဝန်က ကမ္ဘာတစ်ဝှမ်းက ခံစားနေရတဲ့ LDR မိန်းမအတွက် အကြံဉာဏ်တွေ ပေးပါတယ်။</p>
+        <ul>
+          <li><strong>ခန္ဓာကိုယ်အားနည်းခြင်းများကို သတိထားပါ။</strong> ခန္ဓာကိုယ်အေးမိခြင်း၊ အအေးခံရခြင်း၊ နှလုံးခုန်နှုန်းမညီမနေမှုများ ဖြစ်လာရင် ဆရာဝန်ဆီ ဆက်သွယ်ပါ။</li>
+          <li><strong>မနက်စောစော ရေများစွာ သောက်ပါ။</strong> ရေသောက်ခြင်းက လမ်းကြောင်းကို ဖြတ်သန်းရာ အရေးကြီးသည်။</li>
+          <li><strong>နှလုံးနှင့်သွေးလည်ပတ်မှုကို စောင့်ကြည့်ပါ။</strong> စိတ်ဖိစီးမှုများသည် နှလုံးကျန်းမာရေးအပေါ် ဆိုးကျိုးများစေနိုင်သည်။</li>
+          <li><strong>လစဉ်ကျန်းမာရေး စစ်ဆေးခြင်းနှင့် ကိုယ်အလေးချိန် ထိန်းသိမ်းမှု မေ့မထားပါနဲ့။</strong></li>
+          <li><strong>စိတ်ကျန်းမာရေး အတွက် မိမိနှင့် ပတ်သက်သူများနှင့် စကားပြောဆိုပါ။</strong> စိတ်ဖိစီးမှုများ လျော့နည်းစေနိုင်ပါတယ်။</li>
+          <li><strong>အိပ်ရေးစုံလင်ခြင်း၊ လေ့ကျင့်ခန်းများလုပ်ခြင်းများကို အထူးဂရုစိုက်ပါ။</strong></li>
+          <li><strong>နိုင်ငံခြားမှ ဆရာဝန်များ၏ အကြံဉာဏ်များကို နားထောင်ပြီး လိုက်နာပါ။</strong></li>
+        </ul>
+        <p>ဆရာဝန်များအနေဖြင့် ကျန်းမာရေးကို အထူးဂရုစိုက်ပြီး လစဉ်ပြန်လည်စစ်ဆေးရန် အကြံပြုပါတယ်။</p>
+      </section>
+    </div>
+
+    <footer>
+      ❤️ Created with love for Myo Myat Thwe's LDR girlfriend ❤️
+    </footer>
+  </div>
+
+  <script>
+    // Login data
+    const correctUsername = "Myo Myat Thwe";
+    const correctPassword = "Dec12024";
+
+    const loginPage = document.getElementById('loginPage');
+    const mainPage = document.getElementById('mainPage');
+    const loginForm = document.getElementById('loginForm');
+    const loginError = document.getElementById('loginError');
+
+    // Tabs
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.content');
+
+    function showTab(tabName) {
+      tabs.forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.tab === tabName);
+      });
+      contents.forEach(content => {
+        content.classList.toggle('active', content.id === tabName);
+      });
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        showTab(tab.dataset.tab);
+      });
+    });
+
+    // Login form submit
+    loginForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if(username === correctUsername && password === correctPassword) {
+        loginError.textContent = "";
+        loginPage.style.display = 'none';
+        mainPage.style.display = 'block';
+      } else {
+        loginError.textContent = "❌ မှားနေပါတယ်။ ကျေးဇူးပြု၍ ပြန်ကြိုးစားပါ။";
+      }
+    });
+
+    // Logout button
+    const logoutBtn = document.getElementById('logoutBtn');
+    logoutBtn.addEventListener('click', () => {
+      loginPage.style.display = 'flex';
+      mainPage.style.display = 'none';
+      loginForm.reset();
+      loginError.textContent = "";
+    });
+  </script>
+
+</body>
+</html>

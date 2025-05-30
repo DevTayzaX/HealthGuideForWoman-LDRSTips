@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>💗 ဝင်ရောက်ရန်</title>
+  <style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Myanmar Text', sans-serif;
+    background: linear-gradient(to right, #ffe0ec, #fddde6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .login-box {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    width: 90%;
+    max-width: 360px;
+    text-align: center;
+    position: relative;
+  }
+
+  .login-box h2 {
+    margin-bottom: 20px;
+    color: #e91e63;
+    font-size: 1.6em;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #f8bbd0;
+    border-radius: 12px;
+    font-size: 1em;
+    outline: none;
+    transition: border 0.3s;
+  }
+
+  input:focus {
+    border-color: #e91e63;
+  }
+
+  button {
+    width: 100%;
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 12px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  button:hover {
+    background-color: #d81b60;
+  }
+
+  .message {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 0.95em;
+  }
+
+  .heart {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    font-size: 2.3em;
+    animation: bounce 1s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  @media (max-width: 400px) {
+    .login-box {
+      padding: 20px 15px;
+    }
+
+    input, button {
+      font-size: 0.95em;
+    }
+  }
+</style>
+
+</head>
+<body>
+
+  <div class="login-box">
+    <div class="heart">💗</div>
+    <h2>ဝင်ရန်</h2>
+    <input type="text" id="username" value="Myo Myat Thwe" />
+    <input type="password" id="password" placeholder="စကားဝှက်" />
+    <button onclick="login()">ဝင်မည်</button>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    // Redirect if already logged in
+    if (localStorage.getItem("loggedIn") === "true") {
+      window.location.href = "ldr-health-guide.html";
+    }
+
+    function login() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const message = document.getElementById('message');
+
+      if (username === "Myo Myat Thwe" && password === "Dec12024") {
+        localStorage.setItem("loggedIn", "true");
+        message.style.color = 'green';
+        message.textContent = "✅ ဝင်မှုအောင်မြင်ပါတယ်...";
+        setTimeout(() => {
+          window.location.href = "ldr-health-guide.html";
+        }, 1200);
+      } else {
+        message.style.color = 'red';
+        message.textContent = "❌ အသုံးပြုသူအမည် သို့မဟုတ် စကားဝှက် မှားနေပါတယ်။";
+      }
+    }
+  </script>
+
+</body>
+</html>
